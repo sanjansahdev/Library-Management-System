@@ -1,0 +1,298 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LibraryHub | Library Management System</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+
+  <div class="app">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="brand">
+        <span>📚</span>
+        <h2>LibraryHub</h2>
+      </div>
+
+      <p class="sidebar-label">MAIN MENU</p>
+
+      <nav class="sidebar-nav">
+        <a href="#dashboard" class="nav-link active">
+          Dashboard
+        </a>
+        <a href="#catalog" class="nav-link">
+          Book Catalog
+        </a>
+        <a href="#borrowed" class="nav-link">
+          Borrowed Books
+        </a>
+        <a href="#inventory" class="nav-link">
+          Manage Inventory
+        </a>
+        <a href="#notifications" class="nav-link">
+          Notifications
+        </a>
+        <a href="#fines" class="nav-link">
+          Fine Management
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <p>Library Management System</p>
+        <small>Assignment 5 • Agile & Scrum</small>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+      <header class="topbar">
+        <div>
+          <h1>Library Dashboard</h1>
+          <p>Manage your library in one place.</p>
+        </div>
+        <div class="profile">
+          <span class="avatar">A</span>
+          <div>
+            <strong>Library Admin</strong>
+            <small>Administrator</small>
+          </div>
+        </div>
+      </header>
+
+      <!-- Dashboard -->
+      <section id="dashboard" class="section">
+        <div class="section-heading">
+          <h2>Dashboard Overview</h2>
+          <p>Real-time overview of library activity.</p>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <span class="stat-icon">📚</span>
+            <p>Total Books</p>
+            <h2 id="totalBooks">0</h2>
+          </div>
+
+          <div class="stat-card">
+            <span class="stat-icon">✅</span>
+            <p>Available Books</p>
+            <h2 id="availableBooks">0</h2>
+          </div>
+
+          <div class="stat-card">
+            <span class="stat-icon">📖</span>
+            <p>Borrowed Books</p>
+            <h2 id="borrowedCount">0</h2>
+          </div>
+
+          <div class="stat-card">
+            <span class="stat-icon">⚠️</span>
+            <p>Overdue Books</p>
+            <h2 id="overdueCount">0</h2>
+          </div>
+        </div>
+      </section>
+
+      <!-- Book Catalog -->
+      <section id="catalog" class="section">
+        <div class="section-heading">
+          <h2>Explore Books</h2>
+          <p>Find and borrow books from our collection.</p>
+        </div>
+
+        <div class="toolbar">
+          <input
+            type="search"
+            id="searchInput"
+            placeholder="Search title, author or category..."
+          >
+
+          <select id="categoryFilter">
+            <option value="all">All Categories</option>
+            <option value="Programming">Programming</option>
+            <option value="AI & ML">AI & ML</option>
+            <option value="Database">Database</option>
+            <option value="Web Development">Web Development</option>
+            <option value="General">General</option>
+          </select>
+        </div>
+
+        <div id="bookGrid" class="book-grid"></div>
+      </section>
+
+      <!-- Borrowed Books -->
+      <section id="borrowed" class="section">
+        <div class="section-heading">
+          <h2>Borrowed Books</h2>
+          <p>Track issue dates, due dates and returns.</p>
+        </div>
+
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Book</th>
+                <th>Borrower</th>
+                <th>Issue Date</th>
+                <th>Due Date</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="borrowedTable"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Inventory -->
+      <section id="inventory" class="section">
+        <div class="section-heading">
+          <h2>Inventory Management</h2>
+          <p>Add and manage library books.</p>
+        </div>
+
+        <div class="form-card">
+          <h3>Add New Book</h3>
+
+          <form id="addBookForm" class="book-form">
+            <input
+              type="text"
+              id="bookTitle"
+              placeholder="Book Title"
+              required
+            >
+
+            <input
+              type="text"
+              id="bookAuthor"
+              placeholder="Author Name"
+              required
+            >
+
+            <select id="bookCategory" required>
+              <option value="">Select Category</option>
+              <option value="Programming">Programming</option>
+              <option value="AI & ML">AI & ML</option>
+              <option value="Database">Database</option>
+              <option value="Web Development">Web Development</option>
+              <option value="General">General</option>
+            </select>
+
+            <button type="submit" class="primary-btn">
+              + Add Book
+            </button>
+          </form>
+        </div>
+
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Book Title</th>
+                <th>Author</th>
+                <th>Category</th>
+                <th>Availability</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="inventoryTable"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Notifications -->
+      <section id="notifications" class="section">
+        <div class="section-heading">
+          <h2>Notifications</h2>
+          <p>Due-date reminders and overdue alerts.</p>
+        </div>
+
+        <div id="notificationList" class="notification-list">
+        </div>
+      </section>
+
+      <!-- Fine Management -->
+      <section id="fines" class="section">
+        <div class="section-heading">
+          <h2>Fine Management</h2>
+          <p>Track overdue fines and payments.</p>
+        </div>
+
+        <div class="fine-summary">
+          <p>Total Outstanding Fines</p>
+          <h2 id="totalFines">₹0</h2>
+        </div>
+
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Borrower</th>
+                <th>Book</th>
+                <th>Days Late</th>
+                <th>Fine</th>
+                <th>Payment Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="fineTable"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <p>© 2026 LibraryHub | Library Management System</p>
+      </footer>
+
+    </main>
+  </div>
+
+  <!-- Borrow Book Modal -->
+  <div id="borrowModal" class="modal hidden">
+    <div class="modal-content">
+      <button id="closeModal" class="close-btn" type="button">
+        ×
+      </button>
+
+      <h2>Borrow Book</h2>
+      <p id="selectedBookName"></p>
+
+      <form id="borrowForm">
+        <label for="borrowerName">Student Name</label>
+        <input
+          type="text"
+          id="borrowerName"
+          placeholder="Enter student name"
+          required
+        >
+
+        <label for="borrowerId">Student ID</label>
+        <input
+          type="text"
+          id="borrowerId"
+          placeholder="Enter student ID"
+          required
+        >
+
+        <p class="modal-note">
+          Borrowing period: 14 days.
+        </p>
+
+        <button type="submit" class="primary-btn">
+          Confirm Borrow
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Message -->
+  <div id="toast" class="toast hidden"></div>
+
+</body>
+</html>
